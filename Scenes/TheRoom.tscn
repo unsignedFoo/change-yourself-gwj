@@ -10,7 +10,7 @@
 
 [sub_resource type="CubeMesh" id=1]
 flip_faces = true
-size = Vector3( 20, 8, 20 )
+size = Vector3( 10, 8, 10 )
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0.231373, 0.231373, 0.231373, 1 )
@@ -53,19 +53,19 @@ shape = SubResource( 3 )
 [node name="Library" parent="." groups=[
 "Profile3",
 ] instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.71001 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.7573 )
 
 [node name="Wheel" parent="." groups=[
 "Profile2",
 ] instance=ExtResource( 3 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.91961, 2.2113, 0.313994 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.94643, 2.2113, 0.313994 )
 
 [node name="MainDoor" parent="." groups=[
 "Profile1",
 "Profile2",
 "Profile3",
 ] instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0194537, 0.0572994, 10.1579 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0194537, 0.0572994, 4.8858 )
 
 [node name="Lights" type="Spatial" parent="." groups=[
 "Profile1",
@@ -76,7 +76,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0194537, 0.0572994, 10.1579
 [node name="Desk" parent="." groups=[
 "Profile1",
 ] instance=ExtResource( 5 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 0.619182, -1 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.03687, 0.619182, -1 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )
@@ -84,19 +84,19 @@ environment = SubResource( 5 )
 [node name="LibraryLight" type="SpotLight" parent="." groups=[
 "Profile3",
 ]]
-transform = Transform( 1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 2.53469, 5.66727, -9.78029 )
+transform = Transform( 1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 2.53469, 5.66727, -4.82758 )
+
+[node name="Book" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.0402189, -4.3676e-08, 0.999191, -0.999191, -1.758e-09, 0.0402189, 3.55271e-14, -1, -4.37114e-08, -4.11986, 1.76265, 0.52865 )
 
 [node name="DoorLight" type="SpotLight" parent="." groups=[
 "Profile1",
 "Profile2",
 "Profile3",
 ]]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.42972, 9.61903 )
-
-[node name="Book" parent="DoorLight" instance=ExtResource( 7 )]
-transform = Transform( 0.0402189, -4.3676e-08, 0.999191, 4.3676e-08, 1, 4.19534e-08, -0.999191, 4.19534e-08, 0.0402189, -8.80077, 9.09038, -5.66707 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.42972, 5.12526 )
 
 [node name="DeskLight" type="SpotLight" parent="." groups=[
 "Profile1",
 ]]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -9.25546, 4.45681, -0.970484 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -5.59636, 4.45681, -0.970484 )
