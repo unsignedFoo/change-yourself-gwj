@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/BookMaterial.tres" type="Material" id=1]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.126913, 0.514964, 0.391295 )
+
+[node name="Book" type="StaticBody"]
+
+[node name="BookCombiner" type="CSGCombiner" parent="."]
+
+[node name="Cover" type="CSGBox" parent="BookCombiner"]
+width = 0.25
+height = 1.0
+depth = 0.75
+material = ExtResource( 1 )
+
+[node name="Pages" type="CSGBox" parent="BookCombiner/Cover"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.118582 )
+operation = 2
+width = 0.179
+height = 1.17
+depth = 0.885
+
+[node name="Border" type="CSGCylinder" parent="BookCombiner/Cover"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0111681 )
+operation = 1
+radius = 0.391
+height = 1.146
+sides = 27
+material = ExtResource( 1 )
+
+[node name="Substract" type="CSGBox" parent="BookCombiner/Cover"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0158436 )
+width = 0.199026
+height = 0.971255
+depth = 0.693836
+
+[node name="BookColision" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
