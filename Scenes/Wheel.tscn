@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/WheelBase.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/WheelPart.gd" type="Script" id=2]
 
 [sub_resource type="QuadMesh" id=1]
 size = Vector2( 2, 2 )
@@ -11,6 +12,9 @@ params_alpha_scissor_threshold = 0.98
 albedo_color = Color( 1, 0, 0, 1 )
 albedo_texture = ExtResource( 1 )
 
+[sub_resource type="ConcavePolygonShape" id=7]
+data = PoolVector3Array( -1, -1, 0, -1, 1, 0, 1, 1, 0, -1, -1, 0, 1, 1, 0, 1, -1, 0 )
+
 [sub_resource type="QuadMesh" id=3]
 size = Vector2( 1.5, 1.5 )
 
@@ -20,6 +24,9 @@ params_alpha_scissor_threshold = 0.98
 albedo_color = Color( 0, 1, 0.0156863, 1 )
 albedo_texture = ExtResource( 1 )
 
+[sub_resource type="ConcavePolygonShape" id=8]
+data = PoolVector3Array( -0.75, -0.75, 0, -0.75, 0.75, 0, 0.75, 0.75, 0, -0.75, -0.75, 0, 0.75, 0.75, 0, 0.75, -0.75, 0 )
+
 [sub_resource type="QuadMesh" id=5]
 
 [sub_resource type="SpatialMaterial" id=6]
@@ -28,20 +35,46 @@ params_alpha_scissor_threshold = 0.98
 albedo_color = Color( 0.101961, 0, 1, 1 )
 albedo_texture = ExtResource( 1 )
 
+[sub_resource type="ConcavePolygonShape" id=9]
+data = PoolVector3Array( -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0 )
+
 [node name="Wheel" type="Spatial"]
 
-[node name="Outer" type="MeshInstance" parent="."]
+[node name="Outer" type="StaticBody" parent="."]
+collision_layer = 8
+script = ExtResource( 2 )
+
+[node name="OuterMesh" type="MeshInstance" parent="Outer"]
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
 
-[node name="Middle" type="MeshInstance" parent="."]
+[node name="CollisionShape" type="CollisionShape" parent="Outer"]
+shape = SubResource( 7 )
+
+[node name="Middle" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
+collision_layer = 8
+script = ExtResource( 2 )
+
+[node name="MiddleMesh" type="MeshInstance" parent="Middle"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0138649 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
-[node name="Inner" type="MeshInstance" parent="."]
+[node name="CollisionShape" type="CollisionShape" parent="Middle"]
+shape = SubResource( 8 )
+
+[node name="Inner" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02 )
+collision_layer = 8
+script = ExtResource( 2 )
+
+[node name="InnerMesh" type="MeshInstance" parent="Inner"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0279034 )
 mesh = SubResource( 5 )
 material/0 = SubResource( 6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Inner"]
+shape = SubResource( 9 )
 
 [node name="WheelTween" type="Tween" parent="."]

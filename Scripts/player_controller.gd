@@ -34,6 +34,9 @@ export var floor_max_angle := 45.0
 
 signal profile_change
 
+var raycast: RayCast
+var current_wheel_selected = null
+
 ##################################################
 
 # Called when the node enters the scene tree for the first time
@@ -41,7 +44,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	cam.fov = FOV
 	connect("profile_change",get_tree().current_scene,"_on_profile_change")
-
+	raycast = get_node("Head/Camera/RayCast")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(_delta: float) -> void:
@@ -58,6 +61,10 @@ func _physics_process(delta: float) -> void:
 		fly(delta)
 	else:
 		walk(delta)
+	
+	if raycast.is_colliding():
+		var wheel = raycast.get_collider()
+		current_wheel_selected = wheel
 
 
 # Called when there is an input event
@@ -67,6 +74,9 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("ui_accept"):
 		emit_signal("profile_change")
+	
+	if event.is_action_pressed("ui_do_action") and current_wheel_selected:
+		current_wheel_selected._rotate_right()
 
 
 func walk(delta: float) -> void:

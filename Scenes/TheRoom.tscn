@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Library.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/Desk.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/TheRoom.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/Book.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/BookMaterial.tres" type="Material" id=8]
 
 [sub_resource type="CubeMesh" id=1]
 flip_faces = true
@@ -16,7 +17,7 @@ size = Vector3( 10, 8, 10 )
 albedo_color = Color( 0.231373, 0.231373, 0.231373, 1 )
 
 [sub_resource type="ConcavePolygonShape" id=3]
-data = PoolVector3Array( 10, 4, 10, -10, 4, 10, -10, -4, 10, 10, -4, 10, 10, 4, 10, -10, -4, 10, -10, 4, -10, 10, 4, -10, 10, -4, -10, -10, -4, -10, -10, 4, -10, 10, -4, -10, 10, 4, -10, 10, 4, 10, 10, -4, 10, 10, -4, -10, 10, 4, -10, 10, -4, 10, -10, 4, 10, -10, 4, -10, -10, -4, -10, -10, -4, 10, -10, 4, 10, -10, -4, -10, -10, 4, 10, 10, 4, 10, 10, 4, -10, -10, 4, -10, -10, 4, 10, 10, 4, -10, 10, -4, 10, -10, -4, 10, -10, -4, -10, 10, -4, -10, 10, -4, 10, -10, -4, -10 )
+data = PoolVector3Array( 5, 4, 5, -5, 4, 5, -5, -4, 5, 5, -4, 5, 5, 4, 5, -5, -4, 5, -5, 4, -5, 5, 4, -5, 5, -4, -5, -5, -4, -5, -5, 4, -5, 5, -4, -5, 5, 4, -5, 5, 4, 5, 5, -4, 5, 5, -4, -5, 5, 4, -5, 5, -4, 5, -5, 4, 5, -5, 4, -5, -5, -4, -5, -5, -4, 5, -5, 4, 5, -5, -4, -5, -5, 4, 5, 5, 4, 5, 5, 4, -5, -5, 4, -5, -5, 4, 5, 5, 4, -5, 5, -4, 5, -5, -4, 5, -5, -4, -5, 5, -4, -5, 5, -4, 5, -5, -4, -5 )
 
 [sub_resource type="ProceduralSky" id=4]
 
@@ -25,6 +26,12 @@ background_mode = 3
 background_sky = SubResource( 4 )
 ambient_light_color = Color( 0.588235, 0, 0, 1 )
 ambient_light_energy = 0.3
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0, 0.054902, 0.635294, 1 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 0.126913, 0.514964, 0.391295 )
 
 [node name="TheRoom" type="Spatial" groups=[
 "Profile1",
@@ -45,18 +52,22 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
 
-[node name="RoomBody" type="StaticBody" parent="RoomMesh"]
+[node name="RoomStatic" type="StaticBody" parent="RoomMesh"]
 
-[node name="RoomShape" type="CollisionShape" parent="RoomMesh/RoomBody"]
+[node name="RoomShape" type="CollisionShape" parent="RoomMesh/RoomStatic"]
 shape = SubResource( 3 )
 
 [node name="Library" parent="." groups=[
 "Profile3",
 ] instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.7573 )
+collision_layer = 4
+collision_mask = 4
 
 [node name="Wheel" parent="." groups=[
+"Profile1",
 "Profile2",
+"Profile3",
 ] instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.94643, 2.2113, 0.313994 )
 
@@ -86,8 +97,47 @@ environment = SubResource( 5 )
 ]]
 transform = Transform( 1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 2.53469, 5.66727, -4.82758 )
 
-[node name="Book" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.0402189, -4.3676e-08, 0.999191, -0.999191, -1.758e-09, 0.0402189, 3.55271e-14, -1, -4.37114e-08, -4.11986, 1.76265, 0.52865 )
+[node name="Book" parent="." groups=[
+"Profile1",
+] instance=ExtResource( 7 )]
+transform = Transform( 0.0402189, -4.3676e-08, 0.999191, -0.999191, -1.758e-09, 0.0402189, 3.55271e-14, -1, -4.37114e-08, -4.41703, 1.74314, 0.52865 )
+
+[node name="Book2" type="StaticBody" parent="." groups=[
+"Profile3",
+]]
+transform = Transform( -0.999191, -4.54694e-08, 0.0402189, 4.36761e-08, -1, -4.54694e-08, 0.0402189, -4.3676e-08, 0.999191, -1.21129, 1.95422, -4.31968 )
+
+[node name="BookCombiner" type="CSGCombiner" parent="Book2"]
+
+[node name="Cover" type="CSGBox" parent="Book2/BookCombiner"]
+width = 0.25
+height = 1.0
+depth = 0.75
+material = SubResource( 6 )
+
+[node name="Pages" type="CSGBox" parent="Book2/BookCombiner/Cover"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.118582 )
+operation = 2
+width = 0.179
+height = 1.17
+depth = 0.885
+
+[node name="Border" type="CSGCylinder" parent="Book2/BookCombiner/Cover"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0111681 )
+operation = 1
+radius = 0.391
+height = 1.146
+sides = 27
+material = ExtResource( 8 )
+
+[node name="Substract" type="CSGBox" parent="Book2/BookCombiner/Cover"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0158436 )
+width = 0.199026
+height = 0.971255
+depth = 0.693836
+
+[node name="BookColision" type="CollisionShape" parent="Book2"]
+shape = SubResource( 7 )
 
 [node name="DoorLight" type="SpotLight" parent="." groups=[
 "Profile1",
