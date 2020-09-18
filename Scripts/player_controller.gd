@@ -36,6 +36,7 @@ signal profile_change
 
 var raycast: RayCast
 var current_wheel_selected = null
+var cajon = null
 
 ##################################################
 
@@ -63,9 +64,15 @@ func _physics_process(delta: float) -> void:
 		walk(delta)
 	
 	if raycast.is_colliding():
-		var wheel = raycast.get_collider()
-		current_wheel_selected = wheel
-
+		var element = raycast.get_collider()
+		if element.name in ["Outer", "Middle", "Inner"]:
+			current_wheel_selected = element
+		
+		if element.name == "Cajon":
+			cajon = element
+	else:
+		current_wheel_selected = false
+		cajon = false
 
 # Called when there is an input event
 func _input(event: InputEvent) -> void:
@@ -75,9 +82,11 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		emit_signal("profile_change")
 	
-	if event.is_action_pressed("ui_do_action") and current_wheel_selected:
-		current_wheel_selected._rotate_right()
-
+	if event.is_action_pressed("ui_do_action"):
+		if current_wheel_selected:
+			current_wheel_selected._rotate_right()
+		if cajon:
+			cajon._animate_desk()
 
 func walk(delta: float) -> void:
 	# Input

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Cajon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Desk.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "CloseDesk"
@@ -38,7 +39,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"points": PoolRealArray( 1.25, -0.54765, -0.0251583, 0.501252, -0.00219584, 0, -0.517086, -0.0101074, 0.446237, 0 ),
+"points": PoolRealArray( 1.25, -0.54765, -0.0251583, 0.501252, -0.00219584, 0.559895, -0.517086, -0.0101074, 0.446237, 0 ),
 "times": PoolRealArray( 0, 1 )
 }
 
@@ -87,7 +88,9 @@ width = 4.0
 depth = 2.615
 
 [node name="Cajon" parent="MainDesk" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.41655, 0.50315, 0.486353 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.41655, 0.50315, 0.559895 )
+script = ExtResource( 2 )
+animation_path = NodePath("../../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/CloseDesk = SubResource( 1 )
